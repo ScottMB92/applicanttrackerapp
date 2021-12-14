@@ -23,6 +23,15 @@ function App() {
     },
   ]);
 
+  const [beginUpdate, setBeginUpdate] = useState(false);
+  const [updatedApplicant, setUpdatedApplicant] = useState({
+    name: "",
+    jobTitle: "",
+    backgroundChecks: "",
+    references: "",
+    id: ""
+  });
+
   useEffect(() => {
     fetch('/applicants')
     .then((response) => {
@@ -61,20 +70,63 @@ function App() {
     });
   }
 
+  function startUpdate(id) {
+    setBeginUpdate(true);
+    setUpdatedApplicant(prevInput => {
+      return {
+        ...prevInput,
+        id: id,
+      };
+    });
+  }
+
+  function updateApplicant(id) {
+    axios.put('/update/' + id, updatedApplicant);
+    setBeginUpdate(false);
+  }
+
+  function uponUpdate(event) {
+    const {name, value} = event.target;
+    setUpdatedApplicant((prevInput) => {
+      return {
+        ...prevInput,
+        [name]: value,
+      };
+    });
+  }
+
+  function deleteApplicant(id) {
+    axios.delete('/delete/' + id);
+  }
+
   return (
     <div className="App">
+      {!beginUpdate ? (
+      <div className="main">
       <input onChange = {uponChange} name = "name" value = {applicant.name}></input>
       <input onChange = {uponChange} name = "jobTitle" value = {applicant.jobTitle}></input>
       <input onChange = {uponChange} name = "backgroundChecks" value = {applicant.backgroundChecks}></input>
       <input onChange = {uponChange} name = "references" value = {applicant.references}></input>
       <button onClick = {addApplicant}>Add applicant</button>
+      </div>
+      ):(
+          <div className="main">
+          <input onChange = {uponUpdate} name = "name" value = {updatedApplicant.name}></input>
+          <input onChange = {uponUpdate} name = "jobTitle" value = {updatedApplicant.jobTitle}></input>
+          <input onChange = {uponUpdate} name = "backgroundChecks" value = {updatedApplicant.backgroundChecks}></input>
+          <input onChange = {uponUpdate} name = "references" value = {updatedApplicant.references}></input>
+          <button onClick={() => updateApplicant(updatedApplicant.id)}>Update applicant</button>
+          </div>
+      )}
       {applicants.map((applicant) => {
         return (
-          <div key={applicant._id}>
-            <h1>{applicant.name}</h1>
-            <h1>{applicant.jobTitle}</h1>
-            <h1>{applicant.backgroundChecks}</h1>
-            <h1>{applicant.references}</h1>
+          <div key={applicant._id} style={{background: 'red', width: '40%', margin: 'auto auto'}}>
+            <p>{applicant.name}</p>
+            <p>{applicant.jobTitle}</p>
+            <p>{applicant.backgroundChecks}</p>
+            <p>{applicant.references}</p>
+            <button onClick={() => startUpdate(applicant._id)}>Update</button>
+            <button onClick={() => deleteApplicant(applicant._id)}>Delete</button>
           </div>
         );
       })}
