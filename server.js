@@ -4,17 +4,11 @@ const port = 4000;
 const mongoose = require ('mongoose');
 const cors = require('cors');
 
-//config
-
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-//connect to mongodb
-
 mongoose.connect('mongodb+srv://admin-scott:test123@cluster0.wtohy.mongodb.net/newapplicantsDB?retryWrites=true&w=majority');
-
-//data schema
 
 const applicantSchema = {
     name: String,
@@ -23,11 +17,8 @@ const applicantSchema = {
     references: String
 };
 
-//data model
-
 const Applicant = mongoose.model("Applicant", applicantSchema)
 
-//create route
 app.post('/newapplicant', (request, response) => {
     const newApplicant = new Applicant(
         {
@@ -38,16 +29,15 @@ app.post('/newapplicant', (request, response) => {
         }
     );
     newApplicant.save()
+    .then((applicant) => console.log(applicant))
+    .catch((error) => response.status(400).json("Error " + error));
 });
-
-//read route
 
 app.get('/applicants', (request, response) => {
     Applicant.find()
     .then((applicants) => response.json(applicants))
+    .catch((error) => response.status(400).json("Error: " + error));
 });
-
-//update route
 
 app.put("/update/:id", (request, response) => {
     const updatedApplicant = {
@@ -67,8 +57,6 @@ app.put("/update/:id", (request, response) => {
       }
     );
 });
-
-//delete route
 
 app.delete('/delete/:id', (request, response) => {
     const id = request.params.id;

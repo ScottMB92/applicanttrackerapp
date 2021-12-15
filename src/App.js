@@ -1,6 +1,7 @@
 import './App.css';
 import {useState, useEffect} from 'react';
 import axios from 'axios';
+import logo from './tslogo.jpg';
 
 function App() {
 
@@ -102,31 +103,85 @@ function App() {
   return (
     <div className="App">
       {!beginUpdate ? (
-      <div className="main">
-      <input onChange = {uponChange} name = "name" value = {applicant.name}></input>
-      <input onChange = {uponChange} name = "jobTitle" value = {applicant.jobTitle}></input>
-      <input onChange = {uponChange} name = "backgroundChecks" value = {applicant.backgroundChecks}></input>
-      <input onChange = {uponChange} name = "references" value = {applicant.references}></input>
-      <button onClick = {addApplicant}>Add applicant</button>
+      <div className="container">
+        <div class="main">
+        <div class="header">
+          <img className="img-responsive" src={logo} alt="logo"/>
+          <h3>Applicant Tracker</h3>
+          <p>Please enter an applicant's name, job title, whether or not background checks have been completed, and whether or not references have been obtained below</p>
+        </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroup-sizing-default">Applicant's name:</span>
+            </div>
+          <input onChange = {uponChange} name = "name" class="form-control" value = {applicant.name}></input>
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">Applicant's job title:</span>
+            </div>
+          <input onChange = {uponChange} name = "jobTitle" class="form-control" value = {applicant.jobTitle}></input>
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">Background checks:</span>
+            </div>
+          <input onChange = {uponChange} name = "backgroundChecks" class="form-control" value = {applicant.backgroundChecks}></input>
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">References obtained:</span>
+            </div>
+          <input onChange = {uponChange} name = "references" class="form-control" value = {applicant.references}></input>
+          </div>
+          <button className="btn btn-primary" onClick = {addApplicant}>Add applicant</button>
+        </div>
       </div>
       ):(
-          <div className="main">
-          <input onChange = {uponUpdate} name = "name" value = {updatedApplicant.name}></input>
-          <input onChange = {uponUpdate} name = "jobTitle" value = {updatedApplicant.jobTitle}></input>
-          <input onChange = {uponUpdate} name = "backgroundChecks" value = {updatedApplicant.backgroundChecks}></input>
-          <input onChange = {uponUpdate} name = "references" value = {updatedApplicant.references}></input>
-          <button onClick={() => updateApplicant(updatedApplicant.id)}>Update applicant</button>
+        <div className="container">
+        <div class="main">
+        <div class="header">
+          <img className="img-responsive" src={logo} alt="logo"/>
+          <h3>Applicant Tracker</h3>
+          <p>Please update the applicant's name, job title, whether or not background checks have been completed, and whether or not references have been obtained below</p>
+        </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroup-sizing-default">Name:</span>
+            </div>
+          <input onChange = {uponUpdate} name = "name" class="form-control" value = {updatedApplicant.name}></input>
           </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">Job title:</span>
+            </div>
+          <input onChange = {uponUpdate} name = "jobTitle" class="form-control" value = {updatedApplicant.jobTitle}></input>
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">Background checks:</span>
+            </div>
+          <input onChange = {uponUpdate} name = "backgroundChecks" class="form-control" value = {updatedApplicant.backgroundChecks}></input>
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">References:</span>
+            </div>
+          <input onChange = {uponUpdate} name = "references" class="form-control" value = {updatedApplicant.references}></input>
+          </div>
+          <button className="btn btn-primary" onClick={() => updateApplicant(updatedApplicant.id)}>Update applicant</button>
+          </div>
+      </div>
       )}
       {applicants.map((applicant) => {
         return (
-          <div key={applicant._id} style={{background: 'red', width: '40%', margin: 'auto auto'}}>
-            <p>{applicant.name}</p>
-            <p>{applicant.jobTitle}</p>
-            <p>{applicant.backgroundChecks}</p>
-            <p>{applicant.references}</p>
-            <button onClick={() => startUpdate(applicant._id)}>Update</button>
-            <button onClick={() => deleteApplicant(applicant._id)}>Delete</button>
+          <div className="content" key={applicant._id}>
+            <h6>Applicant's name: </h6><p>{applicant.name}</p>
+            <h6>Applicant's job title: </h6><p>{applicant.jobTitle}</p>
+            <h6>Background checks: </h6><p>{applicant.backgroundChecks}</p>
+            <h6>References obtained: </h6><p>{applicant.references}</p>
+            <button className="btn btn-warning" onClick={() => startUpdate(applicant._id)}>Update</button>
+            <button className="btn btn-danger" onClick={() => deleteApplicant(applicant._id)}>Delete</button>
           </div>
         );
       })}
