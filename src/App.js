@@ -147,13 +147,13 @@ function App() {
         </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroup-sizing-default">Name:</span>
+              <span class="input-group-text" id="inputGroup-sizing-default">Applicant's name:</span>
             </div>
           <input onChange = {uponUpdate} name = "name" class="form-control" value = {updatedApplicant.name}></input>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-sizing-default">Job title:</span>
+            <span class="input-group-text" id="inputGroup-sizing-default">Applicant's job title:</span>
             </div>
           <input onChange = {uponUpdate} name = "jobTitle" class="form-control" value = {updatedApplicant.jobTitle}></input>
           </div>
@@ -165,7 +165,7 @@ function App() {
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-sizing-default">References:</span>
+            <span class="input-group-text" id="inputGroup-sizing-default">References obtained:</span>
             </div>
           <input onChange = {uponUpdate} name = "references" class="form-control" value = {updatedApplicant.references}></input>
           </div>
