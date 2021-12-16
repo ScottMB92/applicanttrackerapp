@@ -9,4 +9,4 @@ jobs:
       - name: Run app test
         uses: cypress-io/github-action@v2
         with:
-          start: npm start
+          start: npm run dev
