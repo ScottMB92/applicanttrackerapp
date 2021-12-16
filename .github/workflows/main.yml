@@ -11,4 +11,3 @@ jobs:
         with:
           start: npm start
           wait-on: 'http://localhost:3000'
-          config: baseUrl=http://localhost:3000
