@@ -21,7 +21,7 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "concurrently \"react-scripts start\" \"nodemon server.js\"",
+    "start": "concurrently \"node server.js\" \"react-scripts start\" ",
     "build": "react-scripts build",
     "test": "cypress open",
     "eject": "react-scripts eject"
