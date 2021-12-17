@@ -12,6 +12,7 @@
     "concurrently": "^6.4.0",
     "cors": "^2.8.5",
     "cypress": "^9.1.1",
+    "dotenv": "^10.0.0",
     "eslint-plugin-cypress": "^2.12.1",
     "express": "^4.17.1",
     "mongoose": "^6.1.1",
