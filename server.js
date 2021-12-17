@@ -9,8 +9,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-
-
 mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://admin-scott:test123@cluster0.wtohy.mongodb.net/newapplicantsDB?retryWrites=true&w=majority');
 
 const applicantSchema = {
